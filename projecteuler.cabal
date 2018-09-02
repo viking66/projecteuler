@@ -17,10 +17,11 @@ cabal-version:       >=1.10
 
 executable projecteuler
   main-is:             Main.hs
-  other-modules:       PE1, PE2, PE3, PE4, PE5, PE6
+  other-modules:       PE1, PE2, PE3, PE4, PE5, PE6, PE7, PE8
   -- other-extensions:
   build-depends:       base >=4.11 && <4.12
                      , containers
                      , primes
+                     , split
   hs-source-dirs:      src
   default-language:    Haskell2010
