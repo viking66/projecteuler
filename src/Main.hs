@@ -12,6 +12,7 @@ import qualified PE6 as PE6
 import qualified PE7 as PE7
 import qualified PE8 as PE8
 import qualified PE9 as PE9
+import qualified PE10 as PE10
 
 main :: IO ()
 main = getArgs >>= mapM_ (putSolution . read)
@@ -27,4 +28,5 @@ main = getArgs >>= mapM_ (putSolution . read)
                          , (7, show $ PE7.go 10001)
                          , (8, show $ PE8.go 13)
                          , (9, show $ PE9.go 1000)
+                         , (10, show $ PE10.go 2000000)
                          ]
