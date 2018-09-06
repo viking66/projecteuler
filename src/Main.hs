@@ -24,31 +24,54 @@ import qualified PE18 as PE18
 import qualified PE19 as PE19
 import qualified PE20 as PE20
 import qualified PE21 as PE21
+import qualified PE22 as PE22
+
+data Solution = AnsStr String | AnsStrIO (IO String)
+
+putSolution :: Int -> Solution -> IO ()
+putSolution n (AnsStr s) = putStrLn $ (show n) ++ ": " ++ s
+putSolution n (AnsStrIO s) = s >>= (putSolution n . AnsStr)
+
+mkAnsStr :: Show a => a -> Solution
+mkAnsStr = AnsStr . show
+
+solution :: Show a => a -> Solution
+solution = AnsStr . show
+
+solution1 :: Show b => (a -> b) -> a -> Solution
+solution1 f = solution . f
+
+solution2 :: Show c => (a -> b -> c) -> a -> b -> Solution
+solution2 f = solution1 . f
+
+solutionIO1 :: Show b => (a -> b) -> IO a -> Solution
+solutionIO1 f a = AnsStrIO (a >>= (return . show . f))
 
 main :: IO ()
-main = getArgs >>= mapM_ (putSolution . read)
+main = getArgs >>= mapM_ (putSolution' . read)
   where
-    putSolution n = putStrLn $ (show n) ++ ": " ++ findWithDefault unsolved n solutions
-    unsolved = "No solution implemented."
-    solutions = fromList [ (1, show $ PE1.go 1000)
-                         , (2, show $ PE2.go 4000000 even)
-                         , (3, show $ PE3.go 600851475143)
-                         , (4, show $ PE4.go 3)
-                         , (5, show $ PE5.go 20)
-                         , (6, show $ PE6.go 100)
-                         , (7, show $ PE7.go 10001)
-                         , (8, show $ PE8.go 13)
-                         , (9, show $ PE9.go 1000)
-                         , (10, show $ PE10.go 2000000)
-                         , (11, show $ PE11.go 4)
-                         , (12, show $ PE12.go 500)
-                         , (13, show $ PE13.go 10)
-                         , (14, show $ PE14.go 1000000)
-                         , (15, show $ PE15.go 20)
-                         , (16, show $ PE16.go 1000)
-                         , (17, show $ PE17.go 1000)
-                         , (18, show $ PE18.go)
-                         , (19, show $ PE19.go)
-                         , (20, show $ PE20.go 100)
-                         , (21, show $ PE21.go 10000)
+    putSolution' n = putSolution n $ findWithDefault unsolved n solutions
+    unsolved = AnsStr "No solution implemented."
+    solutions = fromList [ (1, solution1 PE1.go 1000)
+                         , (2, solution2 PE2.go 4000000 even)
+                         , (3, solution1 PE3.go 600851475143)
+                         , (4, solution1 PE4.go 3)
+                         , (5, solution1 PE5.go 20)
+                         , (6, solution1 PE6.go 100)
+                         , (7, solution1 PE7.go 10001)
+                         , (8, solution1 PE8.go 13)
+                         , (9, solution1 PE9.go 1000)
+                         , (10, solution1 PE10.go 2000000)
+                         , (11, solution1 PE11.go 4)
+                         , (12, solution1 PE12.go 500)
+                         , (13, solution1 PE13.go 10)
+                         , (14, solution1 PE14.go 1000000)
+                         , (15, solution1 PE15.go 20)
+                         , (16, solution1 PE16.go 1000)
+                         , (17, solution1 PE17.go 1000)
+                         , (18, solution PE18.go)
+                         , (19, solution PE19.go)
+                         , (20, solution1 PE20.go 100)
+                         , (21, solution1 PE21.go 10000)
+                         , (22, solutionIO1 PE22.go (readFile "share/names.txt"))
                          ]
