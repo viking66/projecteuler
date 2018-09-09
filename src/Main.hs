@@ -26,6 +26,7 @@ import qualified PE20 as PE20
 import qualified PE21 as PE21
 import qualified PE22 as PE22
 import qualified PE23 as PE23
+import qualified PE24 as PE24
 
 data Solution = AnsStr String | AnsStrIO (IO String)
 
@@ -76,4 +77,5 @@ main = getArgs >>= mapM_ (putSolution' . read)
                          , (21, solution1 PE21.go 10000)
                          , (22, solutionIO1 PE22.go (readFile "share/names.txt"))
                          , (23, solution1 PE23.go 28123)
+                         , (24, solution2 PE24.go [0..9] 1000000)
                          ]
