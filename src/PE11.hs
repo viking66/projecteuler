@@ -4,7 +4,7 @@ import Data.List (transpose)
 import Data.List.Split (divvy)
 
 go :: Int -> Int
-go n = maximum [(rowMaxGrid grid), (colMaxGrid grid), (diagLRMax grid), (diagRLMax grid)]
+go n = maximum [rowMaxGrid grid, colMaxGrid grid, diagLRMax grid, diagRLMax grid]
   where safeMax [] = 0
         safeMax xs = maximum xs
         rowMax = safeMax . map product . divvy n 1

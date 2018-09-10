@@ -5,6 +5,6 @@ import Data.List (sort)
 import Data.List.Split (splitOn)
 
 go :: String -> Int
-go = sum . map (uncurry wVal) . zip [1..] . sort . splitOn ","
-  where cVal c = (ord c) - (ord 'A') + 1
+go = sum . zipWith wVal [1..] . sort . splitOn ","
+  where cVal c = ord c - ord 'A' + 1
         wVal i = (i*) . sum . map cVal . filter (/='"')

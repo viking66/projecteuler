@@ -3,36 +3,36 @@ module Main where
 import Data.Map.Lazy (findWithDefault, fromList)
 import System.Environment (getArgs)
 
-import qualified PE1 as PE1
-import qualified PE2 as PE2
-import qualified PE3 as PE3
-import qualified PE4 as PE4
-import qualified PE5 as PE5
-import qualified PE6 as PE6
-import qualified PE7 as PE7
-import qualified PE8 as PE8
-import qualified PE9 as PE9
-import qualified PE10 as PE10
-import qualified PE11 as PE11
-import qualified PE12 as PE12
-import qualified PE13 as PE13
-import qualified PE14 as PE14
-import qualified PE15 as PE15
-import qualified PE16 as PE16
-import qualified PE17 as PE17
-import qualified PE18 as PE18
-import qualified PE19 as PE19
-import qualified PE20 as PE20
-import qualified PE21 as PE21
-import qualified PE22 as PE22
-import qualified PE23 as PE23
-import qualified PE24 as PE24
-import qualified PE25 as PE25
+import qualified PE1
+import qualified PE2
+import qualified PE3
+import qualified PE4
+import qualified PE5
+import qualified PE6
+import qualified PE7
+import qualified PE8
+import qualified PE9
+import qualified PE10
+import qualified PE11
+import qualified PE12
+import qualified PE13
+import qualified PE14
+import qualified PE15
+import qualified PE16
+import qualified PE17
+import qualified PE18
+import qualified PE19
+import qualified PE20
+import qualified PE21
+import qualified PE22
+import qualified PE23
+import qualified PE24
+import qualified PE25
 
 data Solution = AnsStr String | AnsStrIO (IO String)
 
 putSolution :: Int -> Solution -> IO ()
-putSolution n (AnsStr s) = putStrLn $ (show n) ++ ": " ++ s
+putSolution n (AnsStr s) = putStrLn $ show n ++ ": " ++ s
 putSolution n (AnsStrIO s) = s >>= (putSolution n . AnsStr)
 
 mkAnsStr :: Show a => a -> Solution
@@ -48,7 +48,7 @@ solution2 :: Show c => (a -> b -> c) -> a -> b -> Solution
 solution2 f = solution1 . f
 
 solutionIO1 :: Show b => (a -> b) -> IO a -> Solution
-solutionIO1 f a = AnsStrIO (a >>= (return . show . f))
+solutionIO1 f a = AnsStrIO (show . f <$> a)
 
 main :: IO ()
 main = getArgs >>= mapM_ (putSolution' . read)
